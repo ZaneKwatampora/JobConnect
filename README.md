@@ -2,8 +2,6 @@
 
 JobConnect is a full-featured job portal web application built with Django and PostgreSQL. It supports role-based access for **Job Seekers** and **Job Posters**, allowing users to post and apply for jobs, manage profiles, and search listings by country and tags.
 
-![JobConnect Banner](https://your-image-link.com) <!-- Optional: Add a banner or logo -->
-
 ## Features
 
 -  **Role-Based Registration** (Job Seeker & Job Poster)
