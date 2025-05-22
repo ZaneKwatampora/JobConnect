@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}Post a Job{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Post a New Job</h1>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+
+        <!-- Title -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_title">
+                Job Title*
+            </label>
+            {{ form.title }}
+            {{ form.title.errors }}
+        </div>
+
+        <!-- Description -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_description">
+                Description*
+            </label>
+            {{ form.description }}
+            {{ form.description.errors }}
+        </div>
+
+        <!-- Location -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_location">
+                City/Region*
+            </label>
+            {{ form.location }}
+            {{ form.location.errors }}
+        </div>
+
+        <!-- Country -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_country">
+                Country*
+            </label>
+            {{ form.country }}
+            {{ form.country.errors }}
+        </div>
+
+        <!-- Job Type -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_job_type">
+                Job Type*
+            </label>
+            {{ form.job_type }}
+            {{ form.job_type.errors }}
+        </div>
+
+        <!-- Category -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_category">
+                Category* (Available: {{ categories|join:", " }})
+            </label>
+            {{ form.category }}
+            {{ form.category.errors }}
+            {% if not categories %}
+            <p class="text-red-500 text-xs italic">No categories found! Add them in admin.</p>
+            {% endif %}
+        </div>
+
+        <!-- Salary -->
+        <div>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_salary">
+                Salary
+            </label>
+            {{ form.salary }}
+            {{ form.salary.errors }}
+        </div>
+
+        <div class="pt-4">
+            <button type="submit"
+                class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Post Job
+            </button>
+            <a href="{% url 'home' %}" class="ml-4 text-gray-600 hover:text-gray-800">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Enhanced form styling
+    document.querySelectorAll('input, textarea, select').forEach(element => {
+        element.classList.add(
+            'shadow', 'appearance-none', 'border',
+            'rounded', 'w-full', 'py-2', 'px-3',
+            'text-gray-700', 'leading-tight',
+            'focus:outline-none', 'focus:shadow-outline',
+            'focus:border-blue-500', 'hover:border-gray-400'
+        );
+    });
+
+    // Special styling for textarea
+    document.querySelectorAll('textarea').forEach(textarea => {
+        textarea.classList.add('min-h-[120px]');
+    });
+
+    // Make required fields more obvious
+    document.querySelectorAll('[required]').forEach(field => {
+        field.previousElementSibling.classList.add('after:content-["*"]', 'after:ml-1', 'after:text-red-500');
+    });
+</script>
+{% endblock %}

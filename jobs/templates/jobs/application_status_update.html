@@ -1,0 +1,17 @@
+{% extends 'emails/base_email.html' %}
+
+{% block content %}
+<p>Hello {{ applicant.get_full_name|default:applicant.username }},</p>
+
+<p>We wanted to inform you about an update regarding your application for <strong>{{ job.title }}</strong> at {{ company }}.</p>
+
+<p><strong>New Status:</strong> {{ new_status }}</p>
+<p><strong>Date Applied:</strong> {{ application_date }}</p>
+
+<p>You can view your application details by logging into your account.</p>
+
+<p>Thank you for your interest in this position.</p>
+
+<p>Best regards,<br>
+The {{ company }} Team</p>
+{% endblock %}

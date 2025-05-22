@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}My Applications{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold mb-6">My Job Applications</h1>
+    
+    {% if applications %}
+    <div class="space-y-4">
+        {% for application in applications %}
+        <div class="bg-white rounded-lg shadow p-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 class="text-xl font-semibold">
+                        <a href="{% url 'job_detail' application.job.id %}" class="text-blue-600 hover:text-blue-800">
+                            {{ application.job.title }}
+                        </a>
+                    </h2>
+                    <p class="text-gray-600">{{ application.job.posted_by.company_name|default:application.job.posted_by.username }}</p>
+                    <p class="text-sm text-gray-500 mt-2">Applied on {{ application.applied_at|date:"F j, Y" }}</p>
+                </div>
+                <span class="px-3 py-1 rounded-full text-sm font-medium 
+                    {% if application.status == 'accepted' %}bg-green-100 text-green-800
+                    {% elif application.status == 'rejected' %}bg-red-100 text-red-800
+                    {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                    {{ application.get_status_display|default:"Pending" }}
+                </span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="bg-white rounded-lg shadow p-6 text-center">
+        <p class="text-gray-600">You haven't applied to any jobs yet.</p>
+        <a href="{% url 'home' %}" class="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Browse Jobs
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

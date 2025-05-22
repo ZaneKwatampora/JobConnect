@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}My Job Postings{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">My Job Postings</h1>
+    
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {% for job in jobs %}
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="p-6">
+                <h2 class="text-xl font-semibold text-gray-800 mb-2">
+                    <a href="{% url 'view_applications' job.id %}" class="hover:text-blue-500">
+                        {{ job.title }}
+                    </a>
+                </h2>
+                <p class="text-gray-600 mb-3">{{ job.location }}</p>
+                
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-gray-500">
+                        {{ job.application_set.count }} application{{ job.application_set.count|pluralize }}
+                    </span>
+                    <a href="{% url 'view_applications' job.id %}" 
+                       class="text-blue-500 hover:text-blue-700 text-sm font-medium">
+                        View Applications
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-span-3 text-center py-8">
+            <p class="text-gray-500">You haven't posted any jobs yet.</p>
+            <a href="{% url 'post_job' %}" class="mt-4 inline-block bg-blue-500 text-white px-4 py-2 rounded">
+                Post a Job
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
